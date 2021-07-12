@@ -71,7 +71,8 @@ class EditNotePage extends StatelessWidget {
 
     await showDialog(
       context: context,
-      child: AlertDialog(
+        builder: (BuildContext context) {
+          return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         title: Text('Do you want to save changes ?'),
         actions: [
@@ -91,9 +92,10 @@ class EditNotePage extends StatelessWidget {
             },
           ),
         ],
-      ),
-    );
-  }
+          );
+
+  });
+      }
 
   @override
   Widget build(BuildContext context) {
@@ -122,32 +124,39 @@ class EditNotePage extends StatelessWidget {
                 onPressed: () async {
                   await showDialog(
                     context: context,
-                    child: AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      title: Text('Do you want to delete this note ?'),
-                      actions: [
-                        FlatButton(
-                          textColor: Theme.of(context).primaryColor,
-                          child: Text('Yes'),
-                          onPressed: () async {
-                            await Provider.of<Notes>(context, listen: false)
-                                .remove(_note);
-                            Navigator.of(context)..pop()..pop();
-                          },
-                        ),
-                        FlatButton(
-                          textColor: Theme.of(context).primaryColor,
-                          child: Text('No'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        )
-                      ],
-                    ),
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        title: Text('Do you want to delete this note ?'),
+                        actions: [
+                          FlatButton(
+                            textColor: Theme
+                                .of(context)
+                                .primaryColor,
+                            child: Text('Yes'),
+                            onPressed: () async {
+                              await Provider.of<Notes>(context, listen: false)
+                                  .remove(_note);
+                              Navigator.of(context)
+                                ..pop()..pop();
+                            },
+                          ),
+                          FlatButton(
+                            textColor: Theme
+                                .of(context)
+                                .primaryColor,
+                            child: Text('No'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+
+                      );
+                    },
                   );
-                },
-              ),
+                }),
             if (row != null) SizedBox(width: 5),
             IconButton(
               icon: Icon(
@@ -155,8 +164,9 @@ class EditNotePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () => saveNote(context),
-            ),
-          ],
+                       )
+
+    ],
         ),
         body: ListView(
           padding: EdgeInsets.all(10),

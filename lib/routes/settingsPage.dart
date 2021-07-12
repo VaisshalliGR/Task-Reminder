@@ -86,7 +86,9 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               showDialog(
                 context: context,
-                child: ColorPicker(),
+              builder: (BuildContext context) {
+                return ColorPicker();
+              }
               );
             },
           ),
